@@ -4,7 +4,7 @@ os:
 install:
   - brew update
   - brew tap caskroom/cask
-  - brew cask install macvim
+  - brew cask install macvim eclipse-java
   - ln -s mvim /usr/local/bin/vim
 script: make
 
