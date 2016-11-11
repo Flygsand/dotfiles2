@@ -6,7 +6,10 @@ install: install-vim install-zsh
 #
 # Vim
 #
-install-vim: $(HOME)/.vimrc
+install-vim: $(HOME)/.gvimrc $(HOME)/.vimrc
+
+$(HOME)/.gvimrc: gvimrc
+	cp gvimrc $@
 
 $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim vimrc
 	cp vimrc $@
