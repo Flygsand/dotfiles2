@@ -49,5 +49,5 @@ let g:syntastic_enable_signs = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:syntastic_go_checkers = ['gometalinter']
-let g:syntastic_go_gometalinter_args = '--fast'
+let g:syntastic_go_gometalinter_args = '--disable=gotype --fast'
 
