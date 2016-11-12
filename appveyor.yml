@@ -1,0 +1,6 @@
+install:
+  - choco install vim-tux --version 8.0.0066
+build_script:
+  - C:\MinGW\bin\mingw32-make -f Makefile.w32
+test: off
+

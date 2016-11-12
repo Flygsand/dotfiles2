@@ -1,4 +1,5 @@
 .PHONY: install install-vim
+SHELL = cmd
 GOPATH = C:\tools\gotools
 
 install: install-vim
@@ -15,7 +16,7 @@ $(USERPROFILE)\_gvimrc: gvimrc
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim vimrc
 	copy vimrc $@
 	cmd /C "if not exist $(GOPATH) mkdir $(GOPATH)"
-	cmd /C "set "GOPATH=$(GOPATH)" && vim +PlugInstall +qall"
+	cmd /C "set "GOPATH=$(GOPATH)" && vim --not-a-term +PlugInstall +qall"
 	@echo Please add $(GOPATH)\bin to PATH.
 
 $(USERPROFILE)\vimfiles\autoload\plug.vim:
