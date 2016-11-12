@@ -14,7 +14,7 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 call plug#end()
 
