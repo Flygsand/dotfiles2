@@ -14,8 +14,10 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer --tern-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 
@@ -50,4 +52,12 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:syntastic_go_checkers = ['gometalinter']
 let g:syntastic_go_gometalinter_args = '--disable=gotype --fast'
+
+
+"
+" JavaScript
+"
+let g:jsx_ext_required = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
