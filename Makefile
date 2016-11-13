@@ -13,7 +13,7 @@ $(HOME)/.gvimrc: gvimrc
 
 $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim vimrc
 	cp vimrc $@
-	vim +PlugInstall +qall
+	vim --not-a-term +PlugInstall +qall
 
 $(HOME)/.vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

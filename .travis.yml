@@ -1,0 +1,10 @@
+language: c
+os:
+  - osx
+install:
+  - brew update
+  - brew tap caskroom/cask
+  - brew cask install macvim
+  - ln -s mvim /usr/local/bin/vim
+script: make
+
