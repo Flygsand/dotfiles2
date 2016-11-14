@@ -2,8 +2,11 @@ install:
   - ps: Start-FileDownload http://cloud.protomou.se/chocolatey/eclipse-java-neon.4.6.1.nupkg
   - choco install jdk8
   - choco install eclipse-java-neon.4.6.1.nupkg
+  - choco install rust --x86
   - choco install vim-tux --version 8.0.0066
 build_script:
-  - C:\MinGW\bin\mingw32-make -f Makefile.w32
+  - set CC=gcc
+  - set PATH=C:\MinGW\bin;%PATH%
+  - mingw32-make -f Makefile.w32
 test: off
 

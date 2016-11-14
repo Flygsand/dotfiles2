@@ -14,10 +14,11 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer --tern-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer --tern-completer --racer-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 
@@ -66,4 +67,10 @@ let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " Java
 "
 let g:EclimCompletionMethod = 'omnifunc'
+
+
+"
+" Rust
+"
+let g:syntastic_rust_checkers = ['rustc']
 
