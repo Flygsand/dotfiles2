@@ -6,7 +6,7 @@ ECLIPSE_HOME = C:\ProgramData\eclipse
 install: install-vim
 
 clean:
-	rm -rf cache
+	rmdir /Q /S cache
 
 
 #
@@ -15,17 +15,16 @@ clean:
 install-vim: $(USERPROFILE)\_gvimrc $(USERPROFILE)\_vimrc
 
 $(USERPROFILE)\_gvimrc: gvimrc
-	copy gvimrc $@
+	copy /Y gvimrc $@
 
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(USERPROFILE)\vimfiles\eclim\plugin vimrc
-	copy vimrc $@
+	copy /Y vimrc $@
 	cmd /C "if not exist $(GOPATH) mkdir $(GOPATH)"
 	cmd /C "set "GOPATH=$(GOPATH)" && vim --not-a-term +PlugInstall +qall"
 	@echo Please add $(GOPATH)\bin to PATH.
 
 $(USERPROFILE)\vimfiles\autoload\plug.vim:
-	cmd /C "if not exist $(dir $@) mkdir $(dir $@)"
-	powershell -command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', '$@')"
+	powershell -command "md -Force '$(dir $@)' | Out-Null; (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', '$@')"
 
 $(USERPROFILE)\vimfiles\UltiSnips\\%.snippets: UltiSnips\%.snippets
 	echo F | xcopy /Y $< $@
@@ -34,6 +33,5 @@ $(USERPROFILE)\vimfiles\eclim\plugin: cache\eclim.jar
 	java -Dvim.files=$(USERPROFILE)\vimfiles -Declipse.home=$(ECLIPSE_HOME) -jar cache\eclim.jar install
 
 cache\eclim.jar:
-	cmd /C "if not exist $(dir $@) mkdir $(dir $@)"
-	powershell -command "(new-object System.Net.WebClient).DownloadFile('https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar', '$@')"
+	powershell -command "md -Force '$(dir $@)' | Out-Null; (new-object System.Net.WebClient).DownloadFile('https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar', '$@')"
 
