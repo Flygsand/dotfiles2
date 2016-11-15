@@ -5,6 +5,7 @@ set nocompatible
 set number
 set tabstop=4
 set completeopt-=preview
+set backspace=indent,eol,start
 
 
 "
