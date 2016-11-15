@@ -17,7 +17,7 @@ install-vim: $(USERPROFILE)\_gvimrc $(USERPROFILE)\_vimrc
 $(USERPROFILE)\_gvimrc: gvimrc
 	copy gvimrc $@
 
-$(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(USERPROFILE)\vimfiles\eclim\plugin vimrc
+$(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(USERPROFILE)\vimfiles\eclim\plugin vimrc
 	copy vimrc $@
 	cmd /C "if not exist $(GOPATH) mkdir $(GOPATH)"
 	cmd /C "set "GOPATH=$(GOPATH)" && vim --not-a-term +PlugInstall +qall"
@@ -26,6 +26,9 @@ $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(USERPROFILE)\
 $(USERPROFILE)\vimfiles\autoload\plug.vim:
 	cmd /C "if not exist $(dir $@) mkdir $(dir $@)"
 	powershell -command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', '$@')"
+
+$(USERPROFILE)\vimfiles\UltiSnips\\%.snippets: UltiSnips\%.snippets
+	echo F | xcopy /Y $< $@
 
 $(USERPROFILE)\vimfiles\eclim\plugin: cache\eclim.jar
 	java -Dvim.files=$(USERPROFILE)\vimfiles -Declipse.home=$(ECLIPSE_HOME) -jar cache\eclim.jar install

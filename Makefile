@@ -15,12 +15,16 @@ install-vim: $(HOME)/.gvimrc $(HOME)/.vimrc
 $(HOME)/.gvimrc: gvimrc
 	cp gvimrc $@
 
-$(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(HOME)/.vim/eclim/plugin vimrc
+$(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(HOME)/.vim/$(s)) $(HOME)/.vim/eclim/plugin vimrc
 	cp vimrc $@
 	vim --not-a-term +PlugInstall +qall
 
 $(HOME)/.vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+$(HOME)/.vim/UltiSnips/%.snippets: UltiSnips/%.snippets
+	mkdir -p $(dir $@)
+	cp $< $@
 
 $(HOME)/.vim/eclim/plugin: cache/eclim.jar
 	java -Dvim.files=$(HOME)/.vim -Declipse.home=$(ECLIPSE_HOME) -jar cache/eclim.jar install
