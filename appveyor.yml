@@ -7,6 +7,7 @@ install:
 build_script:
   - set CC=gcc
   - set PATH=C:\MinGW\bin;%PATH%
+  - set VIM_ALL=true
   - mingw32-make -f Makefile.w32
 test: off
 

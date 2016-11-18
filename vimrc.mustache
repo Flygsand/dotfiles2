@@ -15,13 +15,22 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --gocode-completer --tern-completer --racer-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}}' }
 Plug 'SirVer/ultisnips'
+
+{{#go}}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+{{/go}}
+
+{{#js}}
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+{{/js}}
+
+{{#rust}}
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
+{{/rust}}
 call plug#end()
 
 
@@ -57,6 +66,7 @@ let g:UltiSnipsJumpForwardTrigger = '<c-b>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-z>'
 
 
+{{#go}}
 "
 " Go
 "
@@ -64,24 +74,31 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:syntastic_go_checkers = ['gometalinter']
 let g:syntastic_go_gometalinter_args = '--disable=gotype --fast'
+{{/go}}
 
 
+{{#js}}
 "
 " JavaScript
 "
 let g:jsx_ext_required = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+{{/js}}
 
 
+{{#java}}
 "
 " Java
 "
 let g:EclimCompletionMethod = 'omnifunc'
+{{/java}}
 
 
+{{#rust}}
 "
 " Rust
 "
 let g:syntastic_rust_checkers = ['rustc']
+{{/rust}}
 

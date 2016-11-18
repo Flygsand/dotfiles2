@@ -1,0 +1,6 @@
+VIM_ALL ?= false
+VIM_JAVA ?= $(VIM_ALL)
+VIM_GO ?= $(VIM_ALL)
+VIM_JS ?= $(VIM_ALL)
+VIM_RUST ?= $(VIM_ALL)
+

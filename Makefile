@@ -1,3 +1,5 @@
+include params.mk
+
 .PHONY: install clean install-vim install-zsh
 ECLIPSE_HOME ?= /Applications/Eclipse.app/Contents/Eclipse
 
@@ -10,13 +12,19 @@ clean:
 #
 # Vim
 #
+VIM_DEPS=
+ifeq ($(VIM_JAVA),true)
+VIM_DEPS += $(HOME)/.vim/eclim/plugin
+endif
+
 install-vim: $(HOME)/.gvimrc $(HOME)/.vimrc
 
 $(HOME)/.gvimrc: gvimrc
 	cp gvimrc $@
 
-$(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(HOME)/.vim/$(s)) $(HOME)/.vim/eclim/plugin vimrc
-	cp vimrc $@
+$(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(HOME)/.vim/$(s)) $(VIM_DEPS) vimrc.mustache
+	perl -Ivendor/experimental/lib -Ivendor/mustache-simple/lib -mMustache::Simple \
+		-e 'use constant {true=>1, false=>0}; $$m=new Mustache::Simple(); print $$m->render("vimrc.mustache", {java=>$(VIM_JAVA), go=>$(VIM_GO), js=>$(VIM_JS), rust=>$(VIM_RUST)})' > $@
 	vim --not-a-term +PlugInstall +qall
 
 $(HOME)/.vim/autoload/plug.vim:

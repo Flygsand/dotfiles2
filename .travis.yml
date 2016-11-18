@@ -1,6 +1,8 @@
 language: c
 os:
   - osx
+env:
+  - VIM_ALL=true
 install:
   - brew update
   - brew tap caskroom/cask
