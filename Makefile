@@ -1,7 +1,6 @@
-include params.mk
-
 .PHONY: install clean install-vim install-zsh
-ECLIPSE_HOME ?= /Applications/Eclipse.app/Contents/Eclipse
+include params.mk
+include $(shell uname -s | perl -ne 'print lc').mk
 
 install: install-vim install-zsh
 

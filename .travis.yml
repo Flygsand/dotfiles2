@@ -1,13 +1,32 @@
 language: c
+dist: trusty
+sudo: required
 os:
   - osx
+  - linux
 env:
   - VIM_ALL=true
 install:
-  - brew update
-  - brew tap caskroom/cask
-  - brew install rust
-  - brew cask install macvim eclipse-java
-  - ln -s mvim /usr/local/bin/vim
-script: make
+  - |
+      case "$TRAVIS_OS_NAME" in
+      osx)
+        brew update
+        brew tap caskroom/cask
+        brew install rust
+        brew cask install macvim eclipse-java
+        ln -s mvim /usr/local/bin/vim
+        ;;
+      linux)
+        sudo add-apt-repository -y ppa:jonathonf/vim
+        sudo apt-get -y update
+        sudo apt-get -y install vim zsh
+        curl -fL "https://static.rust-lang.org/dist/rust-1.13.0-x86_64-unknown-linux-gnu.tar.gz" | tar xzf -
+        sudo rust-*/install.sh
+        curl -fL "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/1a/eclipse-java-neon-1a-linux-gtk-x86_64.tar.gz&r=1" | sudo tar -C /opt -xzf -
+        sudo chown -R $USER /opt/eclipse
+        ;;
+      esac
+script: 
+  - if [[ "$TRAVIS_OS_NAME" == linux ]]; then jdk_switcher use oraclejdk8; fi
+  - make
 
