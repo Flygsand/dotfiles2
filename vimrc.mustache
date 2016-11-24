@@ -15,8 +15,9 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}}' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}} {{#dotnet}}--omnisharp-completer{{/dotnet}}' }
 Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-dispatch'
 
 {{#go}}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -31,6 +32,14 @@ Plug 'mxw/vim-jsx'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 {{/rust}}
+
+{{#dotnet}}
+if has('win32')
+  Plug 'OmniSharp/omnisharp-vim', { 'do': 'msbuild ./server/OmniSharp.sln' }
+else
+  Plug 'OmniSharp/omnisharp-vim', { 'do': 'xbuild ./server/OmniSharp.sln' }
+endif
+{{/dotnet}}
 call plug#end()
 
 
@@ -101,4 +110,9 @@ let g:EclimCompletionMethod = 'omnifunc'
 "
 let g:syntastic_rust_checkers = ['rustc']
 {{/rust}}
+
+
+{{#dotnet}}
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+{{/dotnet}}
 

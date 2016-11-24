@@ -26,7 +26,7 @@ $(USERPROFILE)\_gvimrc: gvimrc
 	copy /Y gvimrc $@
 
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(VIM_DEPS) vimrc.mustache
-	powershell -command "[Reflection.Assembly]::LoadFile('$(ROOT)\vendor\Nustache\Nustache.Core.dll'); [Nustache.Core.Render]::FileToFile('vimrc.mustache', [PSObject]@{java=$$$(VIM_JAVA); go=$$$(VIM_GO); js=$$$(VIM_JS); rust=$$$(VIM_RUST)}, '$@')"
+	powershell -command "[Reflection.Assembly]::LoadFile('$(ROOT)\vendor\Nustache\Nustache.Core.dll'); [Nustache.Core.Render]::FileToFile('vimrc.mustache', [PSObject]@{java=$$$(VIM_JAVA); go=$$$(VIM_GO); js=$$$(VIM_JS); rust=$$$(VIM_RUST); dotnet=$$$(VIM_DOTNET)}, '$@')"
 	cmd /C "set "GOPATH=$(GOPATH)" && vim --not-a-term +PlugInstall +qall"
 
 $(USERPROFILE)\vimfiles\autoload\plug.vim:
