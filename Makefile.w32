@@ -20,10 +20,7 @@ ifeq ($(VIM_JAVA),true)
 VIM_DEPS += $(USERPROFILE)\vimfiles\eclim\plugin
 endif
 
-install-vim: $(USERPROFILE)\_gvimrc $(USERPROFILE)\_vimrc
-
-$(USERPROFILE)\_gvimrc: gvimrc
-	copy /Y gvimrc $@
+install-vim: $(USERPROFILE)\_vimrc
 
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(VIM_DEPS) vimrc.mustache
 	powershell -command "[Reflection.Assembly]::LoadFile('$(ROOT)\vendor\Nustache\Nustache.Core.dll'); [Nustache.Core.Render]::FileToFile('vimrc.mustache', [PSObject]@{java=$$$(VIM_JAVA); go=$$$(VIM_GO); js=$$$(VIM_JS); rust=$$$(VIM_RUST); dotnet=$$$(VIM_DOTNET)}, '$@')"

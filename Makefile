@@ -16,10 +16,7 @@ ifeq ($(VIM_JAVA),true)
 VIM_DEPS += $(HOME)/.vim/eclim/plugin
 endif
 
-install-vim: $(HOME)/.gvimrc $(HOME)/.vimrc
-
-$(HOME)/.gvimrc: gvimrc
-	cp gvimrc $@
+install-vim: $(HOME)/.vimrc
 
 $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(HOME)/.vim/$(s)) $(VIM_DEPS) vimrc.mustache
 	perl -Ivendor/experimental/lib -Ivendor/mustache-simple/lib -mMustache::Simple \
