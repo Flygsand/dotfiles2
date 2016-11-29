@@ -48,20 +48,20 @@ set tabstop=4
 set completeopt-=preview
 
 if has("gui_running")
+  set guioptions-=l
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=T
+  set guioptions-=m
   set background=light
   colorscheme PaperColor
 
   if has("gui_win32")
-    set guioptions-=T
     set guifont=Powerline\ Consolas:h10
   elseif has("gui_macvim")
-    set guioptions-=l
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=R
     set guifont=Monaco\ for\ Powerline:h12
   elseif has("gui_gtk2")
-    set guioptions-=T
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
   endif
 endif
