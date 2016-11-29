@@ -1,4 +1,5 @@
 set nocompatible
+set encoding=utf-8
 
 
 "
@@ -12,6 +13,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-comple
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-dispatch'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 {{#go}}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -44,6 +47,7 @@ set number
 set tabstop=4
 set completeopt-=preview
 set backspace=indent,eol,start
+set laststatus=2
 
 if has("gui_running")
   set background=light
@@ -51,15 +55,16 @@ if has("gui_running")
 
   if has("gui_win32")
     set guioptions-=T
-    set guifont=Consolas:h10
+    set guifont=Powerline\ Consolas:h10
   elseif has("gui_macvim")
     set guioptions-=l
     set guioptions-=L
     set guioptions-=r
     set guioptions-=R
-    set guifont=Monaco:h12
+    set guifont=Monaco\ for\ Powerline:h12
   elseif has("gui_gtk2")
     set guioptions-=T
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
   endif
 endif
 
@@ -94,6 +99,15 @@ let g:syntastic_enable_signs = 1
 let g:UltiSnipsExpandTrigger = '<c-j>'
 let g:UltiSnipsJumpForwardTrigger = '<c-b>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-z>'
+
+
+"
+" airline
+"
+if has("gui_running")
+  let g:airline_theme = 'papercolor'
+  let g:airline_powerline_fonts = 1
+endif
 
 
 {{#go}}

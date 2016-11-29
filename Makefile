@@ -22,6 +22,7 @@ $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/
 	perl -Ivendor/experimental/lib -Ivendor/mustache-simple/lib -mMustache::Simple \
 		-e 'use constant {true=>1, false=>0}; $$m=new Mustache::Simple(); print $$m->render("vimrc.mustache", {java=>$(VIM_JAVA), go=>$(VIM_GO), js=>$(VIM_JS), rust=>$(VIM_RUST), dotnet=>$(VIM_DOTNET)})' > $@
 	vim --not-a-term +PlugInstall +qall
+	rm -rf $(HOME)/.vim/plugged/papercolor-theme/autoload/airline
 
 $(HOME)/.vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
