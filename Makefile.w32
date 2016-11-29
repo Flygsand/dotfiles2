@@ -2,6 +2,7 @@ include params.mk
 
 .PHONY: install clean install-vim
 rm_rf = if exist $(1) ( rmdir /Q /S $(1) )
+dlfile = powershell -command "md -Force '$(dir $(2))' | Out-Null; (new-object System.Net.WebClient).DownloadFile('$(1)', '$(2)')"
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SHELL = cmd
 GOPATH = C:\tools\gotools
@@ -10,7 +11,7 @@ ECLIPSE_HOME = C:\ProgramData\eclipse
 install: install-vim
 
 clean:
-	rmdir /Q /S cache
+	$(call rm_rf,cache)
 
 
 #
@@ -29,7 +30,7 @@ $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(w
 	$(call rm_rf,$(USERPROFILE)\vimfiles\plugged\papercolor-theme\autoload\airline)
 
 $(USERPROFILE)\vimfiles\autoload\plug.vim:
-	powershell -command "md -Force '$(dir $@)' | Out-Null; (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim', '$@')"
+	$(call dlfile,https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim,$@)
 
 $(USERPROFILE)\vimfiles\UltiSnips\\%.snippets: UltiSnips\%.snippets
 	echo F | xcopy /Y $< $@
@@ -38,5 +39,5 @@ $(USERPROFILE)\vimfiles\eclim\plugin: cache\eclim.jar
 	java -Dvim.files=$(USERPROFILE)\vimfiles -Declipse.home=$(ECLIPSE_HOME) -jar cache\eclim.jar install
 
 cache\eclim.jar:
-	powershell -command "md -Force '$(dir $@)' | Out-Null; (new-object System.Net.WebClient).DownloadFile('https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar', '$@')"
+	$(call dlfile,https://github.com/ervandew/eclim/releases/download/2.6.0/eclim_2.6.0.jar,$@)
 
