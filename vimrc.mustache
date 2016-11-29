@@ -11,6 +11,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}} {{#dotnet}}--omnisharp-completer{{/dotnet}}' }
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-dispatch'
+Plug 'NLKNguyen/papercolor-theme'
 
 {{#go}}
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -45,10 +46,17 @@ set completeopt-=preview
 set backspace=indent,eol,start
 
 if has("gui_running")
+  set background=light
+  colorscheme PaperColor
+
   if has("gui_win32")
     set guioptions-=T
     set guifont=Consolas:h10
   elseif has("gui_macvim")
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
     set guifont=Monaco:h12
   elseif has("gui_gtk2")
     set guioptions-=T
