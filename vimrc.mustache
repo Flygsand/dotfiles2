@@ -9,6 +9,7 @@ Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
 Plug 'vim-syntastic/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}} {{#dotnet}}--omnisharp-completer{{/dotnet}}' }
 Plug 'SirVer/ultisnips'
@@ -83,6 +84,12 @@ map <C-n> :NERDTreeToggle<CR>
 " CtrlP
 "
 let g:ctrlp_cmd = 'CtrlPMixed'
+
+
+"
+" Tagbar
+"
+nmap <F8> :TagbarToggle<CR>
 
 
 "
