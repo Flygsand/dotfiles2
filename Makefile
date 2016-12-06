@@ -1,11 +1,11 @@
 .PHONY: install clean install-vim install-zsh
-include params.mk
-include $(shell uname -s | perl -ne 'print lc').mk
-
-install: install-vim install-zsh
+install: install-vim install-zsh install-native
 
 clean:
 	rm -rf cache
+
+include params.mk
+include $(shell uname -s | perl -ne 'print lc').mk
 
 
 #
