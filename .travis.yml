@@ -29,4 +29,5 @@ install:
 script: 
   - if [[ "$TRAVIS_OS_NAME" == linux ]]; then jdk_switcher use oraclejdk8; fi
   - make
+  - make uninstall
 

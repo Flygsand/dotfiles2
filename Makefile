@@ -1,5 +1,7 @@
-.PHONY: install clean install-vim install-zsh
+.PHONY: clean install uninstall install-vim uninstall-vim install-zsh uninstall-zsh
 install: install-vim install-zsh install-native
+
+uninstall: uninstall-vim uninstall-zsh uninstall-native
 
 clean:
 	rm -rf cache
@@ -17,6 +19,11 @@ VIM_DEPS += $(HOME)/.vim/eclim/plugin
 endif
 
 install-vim: $(HOME)/.vimrc
+
+uninstall-vim: cache/eclim.jar
+	-java -Dvim.skip=true -Declipse.home=$(ECLIPSE_HOME) -jar cache/eclim.jar uninstall
+	rm -rf $(HOME)/.vim
+	rm -f $(HOME)/.vimrc
 
 $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(HOME)/.vim/$(s)) $(VIM_DEPS) vimrc.mustache
 	perl -Ivendor/experimental/lib -Ivendor/mustache-simple/lib -mMustache::Simple \
@@ -42,6 +49,10 @@ cache/eclim.jar:
 # zsh
 #
 install-zsh: $(HOME)/.zshrc
+
+uninstall-zsh:
+	rm -rf $(HOME)/.zsh
+	rm -f $(HOME)/.zshrc
 
 $(HOME)/.zshrc: $(HOME)/.zsh/antigen.zsh zshrc
 	cp zshrc $@

@@ -9,5 +9,6 @@ build_script:
   - set PATH=C:\MinGW\bin;%PATH%
   - set VIM_ALL=true
   - mingw32-make -f Makefile.w32
+  - mingw32-make -f Makefile.w32 uninstall
 test: off
 

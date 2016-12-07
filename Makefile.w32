@@ -1,7 +1,8 @@
 include params.mk
 
-.PHONY: install clean install-vim
-rm_rf = if exist $(1) ( rmdir /Q /S $(1) )
+.PHONY: clean install uninstall install-vim uninstall-vim
+rm_rf = if exist $(1) ( rmdir /Q /S $(1) & if exist $(1) rmdir /Q /S $(1) )
+rm_f = if exist $(1) ( if not exist $(1)\NUL ( del /Q /F $(1) ) else ( exit /B 1 ) )
 dlfile = powershell -command "md -Force '$(dir $(2))' | Out-Null; (new-object System.Net.WebClient).DownloadFile('$(1)', '$(2)')"
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SHELL = cmd
@@ -9,6 +10,8 @@ GOPATH = C:\tools\gotools
 ECLIPSE_HOME = C:\ProgramData\eclipse
 
 install: install-vim
+
+uninstall: uninstall-vim
 
 clean:
 	$(call rm_rf,cache)
@@ -23,6 +26,11 @@ VIM_DEPS += $(USERPROFILE)\vimfiles\eclim\plugin
 endif
 
 install-vim: $(USERPROFILE)\_vimrc
+
+uninstall-vim: cache\eclim.jar
+	-java -Dvim.skip=true -Declipse.home=$(ECLIPSE_HOME) -jar cache\eclim.jar install
+	$(call rm_rf,$(USERPROFILE)\vimfiles)
+	$(call rm_f,$(USERPROFILE)\_vimrc)
 
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(VIM_DEPS) vimrc.mustache
 	powershell -command "[Reflection.Assembly]::LoadFile('$(ROOT)\vendor\Nustache\Nustache.Core.dll'); [Nustache.Core.Render]::FileToFile('vimrc.mustache', [PSObject]@{java=$$$(VIM_JAVA); go=$$$(VIM_GO); js=$$$(VIM_JS); rust=$$$(VIM_RUST); dotnet=$$$(VIM_DOTNET)}, '$@')"
