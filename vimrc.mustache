@@ -5,13 +5,23 @@ set nocompatible
 " Plugins
 "
 call plug#begin()
+function! DoYouCompleteMe(info)
+  let l:args = 'install.py{{#go}} --gocode-completer{{/go}}{{#js}} --tern-completer{{/js}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
+  if a:info.status == 'installed' || a:info.force
+    if has('win32')
+      exec 'silent !python ' . l:args
+    else
+      exec 'silent !sh -c ''exec `command -v python2 || command -v python` ' . l:args . ''''
+    endif
+  endif
+endfunction
 Plug 'tpope/vim-sensible'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py {{#go}}--gocode-completer{{/go}} {{#js}}--tern-completer{{/js}} {{#rust}}--racer-completer{{/rust}} {{#dotnet}}--omnisharp-completer{{/dotnet}}' }
+Plug 'Valloric/YouCompleteMe', { 'do': function('DoYouCompleteMe') }
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-dispatch'
 Plug 'Raimondi/delimitMate'
@@ -34,11 +44,7 @@ Plug 'cespare/vim-toml'
 {{/rust}}
 
 {{#dotnet}}
-if has('win32')
-  Plug 'OmniSharp/omnisharp-vim', { 'do': 'msbuild ./server/OmniSharp.sln' }
-else
-  Plug 'OmniSharp/omnisharp-vim', { 'do': 'xbuild ./server/OmniSharp.sln' }
-endif
+Plug 'OmniSharp/omnisharp-vim', { 'do': (has('win32') ? 'msbuild' : 'xbuild') . ' ./server/OmniSharp.sln' }
 {{/dotnet}}
 call plug#end()
 
