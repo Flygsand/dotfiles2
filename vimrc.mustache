@@ -6,7 +6,7 @@ set nocompatible
 "
 call plug#begin()
 function! DoYouCompleteMe(info)
-  let l:args = 'install.py{{#go}} --gocode-completer{{/go}}{{#js}} --tern-completer{{/js}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
+  let l:args = 'install.py --clang-completer{{#go}} --gocode-completer{{/go}}{{#js}} --tern-completer{{/js}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
   if a:info.status == 'installed' || a:info.force
     if has('win32')
       exec 'silent !python ' . l:args
@@ -112,6 +112,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_enable_signs = 1
+
+
+"
+" YouCompleteMe
+"
+let g:ycm_confirm_extra_conf = 0
 
 
 "
