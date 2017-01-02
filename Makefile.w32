@@ -10,6 +10,7 @@ GOPATH = C:\tools\gotools
 ECLIPSE_HOME = C:\ProgramData\eclipse
 
 install: install-vim
+	copy /Y editorconfig $(USERPROFILE)\.editorconfig
 	copy /Y gitignore $(USERPROFILE)\.gitignore
 	git config --global core.excludesfile $(USERPROFILE)\.gitignore
 
