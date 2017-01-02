@@ -1,5 +1,7 @@
 .PHONY: clean install uninstall install-vim uninstall-vim install-zsh uninstall-zsh
 install: install-vim install-zsh install-native
+	cp gitignore $(HOME)/.gitignore
+	git config --global core.excludesfile $(HOME)/.gitignore
 
 uninstall: uninstall-vim uninstall-zsh uninstall-native
 
