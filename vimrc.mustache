@@ -10,7 +10,8 @@ function! DoYouCompleteMe(info)
   if a:info.status == 'installed' || a:info.force
     if has('win32')
       exec 'silent !git -C ./third_party/ycmd apply ' . $USERPROFILE . '/vimfiles/patches/ycmd-omnisharp-x64.patch'
-      exec 'silent !python ' . l:args
+      exec 'silent !git -C ./third_party/ycmd apply ' . $USERPROFILE . '/vimfiles/patches/ycmd-VS2017.patch'
+      exec 'silent !python ' . l:args . ' --msvc=15'
     else
       exec 'silent !sh -c ''exec `command -v python2 || command -v python` ' . l:args . ''''
     endif

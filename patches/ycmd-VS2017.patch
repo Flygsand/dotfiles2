@@ -1,0 +1,37 @@
+diff --git a/build.py b/build.py
+index 0d7d5db2..37e90b27 100644
+--- a/build.py
++++ b/build.py
+@@ -222,7 +222,9 @@ def CustomPythonCmakeArgs():
+ 
+ def GetGenerator( args ):
+   if OnWindows():
+-    if args.msvc == 14:
++    if args.msvc == 15:
++      generator = 'Visual Studio 15 2017'
++    elif args.msvc == 14:
+       generator = 'Visual Studio 14'
+     elif args.msvc == 12:
+       generator = 'Visual Studio 12'
+@@ -254,7 +256,7 @@ def ParseArguments():
+   parser.add_argument( '--system-boost', action = 'store_true',
+                        help = 'Use the system boost instead of bundled one. '
+                        'NOT RECOMMENDED OR SUPPORTED!')
+-  parser.add_argument( '--msvc', type = int, choices = [ 11, 12, 14 ],
++  parser.add_argument( '--msvc', type = int, choices = [ 11, 12, 14, 15 ],
+                        default = 14, help = 'Choose the Microsoft Visual '
+                        'Studio version (default: %(default)s).' )
+   parser.add_argument( '--tern-completer',
+diff --git a/cpp/BoostParts/boost/config/compiler/visualc.hpp b/cpp/BoostParts/boost/config/compiler/visualc.hpp
+index 72caff49..9a40b580 100644
+--- a/cpp/BoostParts/boost/config/compiler/visualc.hpp
++++ b/cpp/BoostParts/boost/config/compiler/visualc.hpp
+@@ -295,7 +295,7 @@
+ 
+ //
+ // last known and checked version is 19.00.23026 (VC++ 2015 RTM):
+-#if (_MSC_VER > 1900)
++#if (_MSC_VER > 1910)
+ #  if defined(BOOST_ASSERT_CONFIG)
+ #     error "Unknown compiler version - please run the configure tests and report the results"
+ #  else
