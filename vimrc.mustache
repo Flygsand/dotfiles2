@@ -9,6 +9,7 @@ function! DoYouCompleteMe(info)
   let l:args = 'install.py --clang-completer{{#go}} --gocode-completer{{/go}}{{#js}} --tern-completer{{/js}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
   if a:info.status == 'installed' || a:info.force
     if has('win32')
+      exec 'silent !git -C ./third_party/ycmd apply ' . $USERPROFILE . '/vimfiles/patches/ycmd-omnisharp-x64.patch'
       exec 'silent !python ' . l:args
     else
       exec 'silent !sh -c ''exec `command -v python2 || command -v python` ' . l:args . ''''
@@ -44,7 +45,7 @@ Plug 'cespare/vim-toml'
 {{/rust}}
 
 {{#dotnet}}
-Plug 'OmniSharp/omnisharp-vim', { 'do': (has('win32') ? 'msbuild' : 'xbuild') . ' ./server/OmniSharp.sln' }
+Plug 'OmniSharp/omnisharp-vim', { 'do': (has('win32') ? 'msbuild' : 'xbuild') . ' ./server/OmniSharp.sln /p:Platform=\"Any CPU\"' }
 {{/dotnet}}
 call plug#end()
 

@@ -34,7 +34,9 @@ uninstall-vim: cache\eclim.jar
 
 $(USERPROFILE)\_vimrc: $(USERPROFILE)\vimfiles\autoload\plug.vim $(foreach s,$(wildcard UltiSnips/*.snippets),$(USERPROFILE)\vimfiles\$(subst /,\,$(s))) $(VIM_DEPS) vimrc.mustache
 	powershell -command "[Reflection.Assembly]::LoadFile('$(ROOT)\vendor\Nustache\Nustache.Core.dll'); [Nustache.Core.Render]::FileToFile('vimrc.mustache', [PSObject]@{java=$$$(VIM_JAVA); go=$$$(VIM_GO); js=$$$(VIM_JS); rust=$$$(VIM_RUST); dotnet=$$$(VIM_DOTNET)}, '$@')"
+	echo D | xcopy /E /Y patches $(USERPROFILE)\vimfiles\patches
 	cmd /C "set "GOPATH=$(GOPATH)" && vim --not-a-term +PlugInstall +qall"
+	$(call rm_rf,$(USERPROFILE)\vimfiles\patches)
 	$(call rm_rf,$(USERPROFILE)\vimfiles\plugged\papercolor-theme\autoload\airline)
 
 $(USERPROFILE)\vimfiles\autoload\plug.vim:

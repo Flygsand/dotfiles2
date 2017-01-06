@@ -1,0 +1,13 @@
+diff --git a/build.py b/build.py
+index 0d7d5db2..b0d6e9c9 100644
+--- a/build.py
++++ b/build.py
+@@ -418,7 +418,7 @@ def BuildOmniSharp():
+     sys.exit( 'ERROR: msbuild or xbuild is required to build Omnisharp.' )
+ 
+   os.chdir( p.join( DIR_OF_THIS_SCRIPT, 'third_party', 'OmniSharpServer' ) )
+-  CheckCall( [ build_command, '/property:Configuration=Release' ] )
++  CheckCall( [ build_command, '/property:Configuration=Release', '/property:Platform=Any CPU' ] )
+ 
+ 
+ def BuildGoCode():
