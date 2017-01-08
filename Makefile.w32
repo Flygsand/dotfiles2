@@ -13,6 +13,7 @@ install: install-vim
 	copy /Y editorconfig $(USERPROFILE)\.editorconfig
 	copy /Y gitignore $(USERPROFILE)\.gitignore
 	git config --global core.excludesfile $(USERPROFILE)\.gitignore
+	git config --global core.pager "less -x4"
 	copy /Y ctags $(USERPROFILE)\ctags.cnf
 
 uninstall: uninstall-vim
