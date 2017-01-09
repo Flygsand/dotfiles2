@@ -17,6 +17,11 @@ install: install-vim
 	copy /Y ctags $(USERPROFILE)\ctags.cnf
 
 uninstall: uninstall-vim
+	$(call rm_f, $(USERPROFILE)\.editorconfig)
+	$(call rm_f, $(USERPROFILE)\.gitignore)
+	git config --global --unset core.excludesfile
+	git config --global --unset core.pager
+	$(call rm_f, $(USERPROFILE)\ctags.cnf)
 
 clean:
 	$(call rm_rf,cache)

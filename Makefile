@@ -7,6 +7,9 @@ install: install-vim install-zsh install-native
 	cp ctags $(HOME)/.ctags
 
 uninstall: uninstall-vim uninstall-zsh uninstall-native
+	rm -f $(HOME)\.editorconfig $(HOME)\.gitignore $(HOME)\.ctags
+	git config --global --unset core.excludesfile
+	git config --global --unset core.pager
 
 clean:
 	rm -rf cache
