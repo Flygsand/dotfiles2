@@ -7,7 +7,7 @@ dlfile = powershell -command "md -Force '$(dir $(2))' | Out-Null; (new-object Sy
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SHELL = cmd
 GOPATH = C:\tools\gotools
-ECLIPSE_HOME = C:\ProgramData\eclipse
+ECLIPSE_HOME ?= C:\ProgramData\eclipse
 
 install: install-vim
 	copy /Y editorconfig $(USERPROFILE)\.editorconfig
