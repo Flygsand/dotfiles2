@@ -15,7 +15,9 @@ clean:
 	rm -rf cache
 
 include params.mk
-include $(shell uname -s | perl -ne 'print lc').mk
+install-native:
+uninstall-native:
+-include $(shell uname -s | perl -ne 'print lc').mk
 
 
 #
@@ -38,7 +40,7 @@ $(HOME)/.vimrc: $(HOME)/.vim/autoload/plug.vim $(foreach s,$(wildcard UltiSnips/
 		-e 'use constant {true=>1, false=>0}; $$m=new Mustache::Simple(); print $$m->render("vimrc.mustache", {java=>$(VIM_JAVA), go=>$(VIM_GO), js=>$(VIM_JS), rust=>$(VIM_RUST), dotnet=>$(VIM_DOTNET)})' > $@
 	vim --not-a-term +PlugInstall +qall
 	rm -rf $(HOME)/.vim/plugged/papercolor-theme/autoload/airline
-	cp -pr completers/* $(HOME)/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/completers
+	-cp -pr completers/* $(HOME)/.vim/plugged/YouCompleteMe/third_party/ycmd/ycmd/completers
 
 $(HOME)/.vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

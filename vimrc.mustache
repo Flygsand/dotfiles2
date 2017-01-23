@@ -23,7 +23,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do': function('DoYouCompleteMe') }
+if !has('win32unix')
+  Plug 'Valloric/YouCompleteMe', { 'do': function('DoYouCompleteMe') }
+endif
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-dispatch'
 Plug 'Raimondi/delimitMate'
