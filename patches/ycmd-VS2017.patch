@@ -22,16 +22,3 @@ index 0d7d5db2..37e90b27 100644
                         default = 14, help = 'Choose the Microsoft Visual '
                         'Studio version (default: %(default)s).' )
    parser.add_argument( '--tern-completer',
-diff --git a/cpp/BoostParts/boost/config/compiler/visualc.hpp b/cpp/BoostParts/boost/config/compiler/visualc.hpp
-index 72caff49..9a40b580 100644
---- a/cpp/BoostParts/boost/config/compiler/visualc.hpp
-+++ b/cpp/BoostParts/boost/config/compiler/visualc.hpp
-@@ -295,7 +295,7 @@
- 
- //
- // last known and checked version is 19.00.23026 (VC++ 2015 RTM):
--#if (_MSC_VER > 1900)
-+#if (_MSC_VER > 1910)
- #  if defined(BOOST_ASSERT_CONFIG)
- #     error "Unknown compiler version - please run the configure tests and report the results"
- #  else
