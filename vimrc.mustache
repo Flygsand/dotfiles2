@@ -32,6 +32,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'rizzatti/dash.vim'
 Plug 'quabug/vim-gdscript'
 Plug 'cespare/vim-toml'
 Plug 'protomouse/systemd.vim'
@@ -145,6 +146,12 @@ if has("gui_running")
   let g:airline_theme = 'papercolor'
   let g:airline_powerline_fonts = 1
 endif
+
+
+"
+" Dash
+"
+nmap <silent> <leader>d <Plug>DashSearch
 
 
 "
