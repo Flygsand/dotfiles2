@@ -39,6 +39,8 @@ Plug 'quabug/vim-gdscript'
 Plug 'cespare/vim-toml'
 Plug 'protomouse/systemd.vim'
 Plug 'docker/docker', { 'rtp': '/contrib/syntax/vim/' }
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 
 {{#go}}
 Plug 'fatih/vim-go', { 'do': ':exec ''GoInstallBinaries'' \| :silent !gometalinter --install' }
@@ -172,6 +174,14 @@ let g:tagbar_type_gdscript = {
 \   'f:functions',
 \ ]
 \}
+
+
+"
+" TypeScript
+"
+let g:typescript_indent_disable = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 
 
 {{#go}}
