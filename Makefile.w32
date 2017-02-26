@@ -6,7 +6,7 @@ rm_f = if exist $(1) ( if not exist $(1)\NUL ( del /Q /F $(1) ) else ( exit /B 1
 dlfile = powershell -command "md -Force '$(dir $(2))' | Out-Null; (new-object System.Net.WebClient).DownloadFile('$(1)', '$(2)')"
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 SHELL = cmd
-GOPATH = C:\tools\gotools
+GOPATH = C:\gotools
 ECLIPSE_HOME ?= C:\ProgramData\eclipse
 
 install: install-vim
