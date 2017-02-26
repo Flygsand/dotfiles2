@@ -3,7 +3,7 @@ install: install-vim install-zsh install-native
 	cp editorconfig $(HOME)/.editorconfig
 	cp gitignore $(HOME)/.gitignore
 	git config --global core.excludesfile $(HOME)/.gitignore
-	git config --global core.pager "less -x4"
+	git config --global core.pager "less -x2"
 	cp ctags $(HOME)/.ctags
 
 uninstall: uninstall-vim uninstall-zsh uninstall-native
