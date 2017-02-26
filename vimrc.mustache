@@ -27,7 +27,9 @@ if !has('win32unix')
   Plug 'Valloric/YouCompleteMe', { 'do': function('DoYouCompleteMe') }
 endif
 Plug 'SirVer/ultisnips'
+Plug 'Shougo/vimproc.vim', { 'do' : (has('win32') ? 'mingw32-make' : 'make') }
 Plug 'tpope/vim-dispatch'
+Plug 'ompugao/vim-dispatch-vimproc'
 Plug 'Raimondi/delimitMate'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
