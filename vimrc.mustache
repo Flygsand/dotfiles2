@@ -191,7 +191,7 @@ let g:syntastic_typescript_checkers = ['tsuquyomi']
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
 let g:syntastic_go_checkers = ['gometalinter']
-let g:syntastic_go_gometalinter_args = '--disable=gotype --fast'
+let g:syntastic_go_gometalinter_args = '--tests --disable-all -E gotype'
 {{/go}}
 
 
