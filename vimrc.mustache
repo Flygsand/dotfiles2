@@ -6,8 +6,9 @@ set nocompatible
 "
 call plug#begin()
 function! DoYouCompleteMe(info)
-  let l:args = 'install.py --clang-completer{{#go}} --gocode-completer{{/go}}{{#js}} --tern-completer{{/js}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
+  let l:args = 'install.py --clang-completer{{#go}} --gocode-completer{{/go}}{{#rust}} --racer-completer{{/rust}}{{#dotnet}} --omnisharp-completer{{/dotnet}}'
   if a:info.status == 'installed' || a:info.force
+    {{#js}}exec 'silent !npm install -g typescript'{{/js}}
     if has('win32')
       exec 'silent !git -C ./third_party/ycmd apply ' . $USERPROFILE . '/vimfiles/patches/ycmd-omnisharp-x64.patch'
       exec 'silent !git -C ./third_party/ycmd apply ' . $USERPROFILE . '/vimfiles/patches/ycmd-VS2017.patch'
@@ -39,8 +40,6 @@ Plug 'quabug/vim-gdscript'
 Plug 'cespare/vim-toml'
 Plug 'protomouse/systemd.vim'
 Plug 'docker/docker', { 'rtp': '/contrib/syntax/vim/' }
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
 
 {{#go}}
 Plug 'fatih/vim-go', { 'do': ':exec ''GoInstallBinaries'' \| :silent !gometalinter --install' }
@@ -49,6 +48,9 @@ Plug 'fatih/vim-go', { 'do': ':exec ''GoInstallBinaries'' \| :silent !gometalint
 {{#js}}
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi', { 'do': 'npm install -g typescript' }
+Plug 'flowtype/vim-flow', { 'do': 'npm install -g flow-bin' }
 {{/js}}
 
 {{#rust}}
@@ -176,14 +178,6 @@ let g:tagbar_type_gdscript = {
 \}
 
 
-"
-" TypeScript
-"
-let g:typescript_indent_disable = 1
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-
-
 {{#go}}
 "
 " Go
@@ -200,8 +194,18 @@ let g:syntastic_go_gometalinter_args = '--tests --disable-all -E gotype'
 " JavaScript
 "
 let g:jsx_ext_required = 0
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint', 'flow']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:javascript_plugin_flow = 1
+let g:flow#enable = 0
+
+
+"
+" TypeScript
+"
+let g:typescript_indent_disable = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 {{/js}}
 
 
